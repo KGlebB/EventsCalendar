@@ -37,10 +37,12 @@ class HolidayActivity : ComponentActivity() {
         val intentDate = intent.getStringExtra("holidayDate")
         val intentDescription = intent.getStringExtra("holidayDescription")
         val intentDays = intent.getStringExtra("holidayDays")
+
         val holidayName = findViewById<TextView>(R.id.holidayName)
         val holidayDate = findViewById<TextView>(R.id.holidayDate)
         val holidayDescription = findViewById<TextView>(R.id.holidayDescription)
         val holidayDays = findViewById<TextView>(R.id.holidayDays)
+
         holidayName.text = intentName
         holidayDate.text = intentDate
         holidayDescription.text = intentDescription
