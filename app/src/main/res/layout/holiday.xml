@@ -1,56 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    tools:context=".MainActivity"
     android:background="#F5F5F5">
 
-    <TextView
-        android:id="@+id/holidayName"
+    <ImageView
+        android:id="@+id/backImage"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#186EAF"
-        android:padding="16dp"
-        android:text="Название праздника"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:layout_height="match_parent"
+        android:src="@drawable/empty"
+        android:scaleType="centerCrop"
+        android:contentDescription="Background Image"
+        android:alpha="0.2" />
 
-    <TextView
-        android:id="@+id/holidayDate"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Дата праздника"
-        android:textSize="20sp"
-        android:textColor="#333333" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/holidayDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Описание праздника"
-        android:textSize="16sp"
-        android:layout_weight="1"
-        android:textColor="#555555" />
+        <TextView
+            android:id="@+id/holidayName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#186EAF"
+            android:padding="16dp"
+            android:text="Название праздника"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/holidayDays"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Праздничные дни"
-        android:textColor="#5CB1F2"
-        android:textStyle="bold"
-        android:paddingTop="8dp" />
+        <TextView
+            android:id="@+id/holidayDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="Дата праздника"
+            android:textColor="#333333"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Назад"
-        android:textSize="16sp"
-        android:background="#5CB1F2"
-        android:textColor="#FFFFFF"
-        android:padding="16dp"
-        android:layout_marginTop="16dp" />
-</LinearLayout>
+        <ImageView
+            android:id="@+id/holidayImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/empty"
+            android:scaleType="centerCrop"
+            android:padding="16dp"
+            android:contentDescription="Holiday Image" />
+
+        <TextView
+            android:id="@+id/holidayDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Описание праздника"
+            android:textSize="16sp"
+            android:layout_weight="1"
+            android:padding="16dp"
+            android:textColor="#555555" />
+
+        <TextView
+            android:id="@+id/holidayDays"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Праздничные дни"
+            android:textColor="#5CB1F2"
+            android:textStyle="bold"
+            android:padding="16dp" />
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Назад"
+            android:textSize="16sp"
+            android:background="#5CB1F2"
+            android:textColor="#FFFFFF"
+            android:layout_margin="16dp" />
+    </LinearLayout>
+
+</RelativeLayout>

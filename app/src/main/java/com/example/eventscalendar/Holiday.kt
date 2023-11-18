@@ -6,5 +6,6 @@ data class Holiday(
     val name: String,
     val date: String,
     val description: String,
-    val days: String?
+    val days: String?,
+    val imageUrl: String?
 )

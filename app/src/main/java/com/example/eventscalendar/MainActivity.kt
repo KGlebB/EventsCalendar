@@ -1,6 +1,7 @@
 package com.example.eventscalendar
 
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Spannable
@@ -8,34 +9,51 @@ import android.text.SpannableString
 import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.activity.ComponentActivity
 import androidx.core.content.ContextCompat
-import org.json.JSONArray
-import java.util.Locale
-import android.graphics.Color
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+import androidx.preference.PreferenceManager
 
 class MainActivity : ComponentActivity() {
-    private lateinit var holidayList: List<Holiday>
-    private val holidayDataLoader = HolidayDataLoader(this)
+    private lateinit var linearLayout: LinearLayout
+    private var isDark: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main)
-        holidayList = holidayDataLoader.loadHolidayFromJson()
-        listEvents()
+        checkDarkMode()
+        initEvents()
+        initSettingsButton()
     }
 
-    private fun listEvents() {
-        val linearLayout = findViewById<LinearLayout>(R.id.linearLayout)
-        for (holiday in holidayList) {
-            val button = createHolidayButton(holiday)
-            setButtonAttributes(button)
-            setButtonClickListener(button, holiday)
-            linearLayout.addView(button)
+    private fun checkDarkMode() {
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        isDark = sharedPreferences.getBoolean("dark_mode", false)
+        if (isDark) {
+            findViewById<LinearLayout>(R.id.mainLayout).setBackgroundColor(Color.parseColor("#000000"))
         }
+    }
+
+    private fun initSettingsButton() {
+        val settingsButton: ImageButton = findViewById(R.id.settingsButton)
+        settingsButton.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
+        }
+    }
+
+    private fun initEvents() {
+        linearLayout = findViewById(R.id.linearLayout)
+        val holidayDataLoader = HolidayDataLoader(this)
+        val holidayList = holidayDataLoader.loadHolidayFromJson()
+        holidayList.forEach { initHoliday(it) }
+    }
+
+    private fun initHoliday(holiday: Holiday) {
+        val button = createHolidayButton(holiday)
+        setButtonAttributes(button)
+        setButtonClickListener(button, holiday)
+        linearLayout.addView(button)
     }
 
     private fun createHolidayButton(holiday: Holiday): Button {
@@ -63,9 +81,13 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun setButtonAttributes(button: Button) {
-        button.setBackgroundColor(Color.parseColor("#5CB1F2"))
-        button.setTextColor(ContextCompat.getColor(this, android.R.color.white))
+        val bgColor = if (isDark) Color.parseColor("#18659B") else Color.parseColor("#5CB1F2")
+        val textColor = if (isDark) Color.parseColor("#CCCCCC") else Color.parseColor("#FFFFFF")
+
+        button.setBackgroundColor(bgColor)
+        button.setTextColor(textColor)
         button.setPadding(0, 24, 0, 24)
+
         val layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
@@ -76,11 +98,13 @@ class MainActivity : ComponentActivity() {
 
     private fun setButtonClickListener(button: Button, holiday: Holiday) {
         button.setOnClickListener {
-            val intent = Intent(this, HolidayActivity::class.java)
-            intent.putExtra("holidayName", holiday.name)
-            intent.putExtra("holidayDate", holiday.date)
-            intent.putExtra("holidayDescription", holiday.description)
-            intent.putExtra("holidayDays", holiday.days)
+            val intent = Intent(this, HolidayActivity::class.java).apply {
+                putExtra("holidayName", holiday.name)
+                putExtra("holidayDate", holiday.date)
+                putExtra("holidayDescription", holiday.description)
+                putExtra("holidayDays", holiday.days)
+                putExtra("holidayImageUrl", holiday.imageUrl)
+            }
             startActivity(intent)
         }
     }

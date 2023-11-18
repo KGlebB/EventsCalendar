@@ -1,0 +1,20 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- Dark/Light Mode Preference -->
+    <SwitchPreferenceCompat
+        app:key="dark_mode"
+        app:title="Тёмная тема"
+        app:summary="Включить/выключить тёмную тему"
+        app:defaultValue="false"/>
+
+    <!-- Picture Display Preference -->
+    <ListPreference
+        app:key="picture_display"
+        app:title="Изображение"
+        app:summary="Способ отображения изображений"
+        app:dialogTitle="Выберите способ отображения"
+        app:entries="@array/picture_display_options"
+        app:entryValues="@array/picture_display_values"
+        app:defaultValue="hide"/>
+
+</PreferenceScreen>

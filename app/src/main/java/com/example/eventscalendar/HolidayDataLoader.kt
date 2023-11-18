@@ -34,7 +34,8 @@ class HolidayDataLoader(private val context: Context) {
             val formattedDate = formatDate(date)
             val description = holidayJsonObject.getString("description")
             val days = holidayJsonObject.optString("days", null)
-            val holiday = Holiday(name, formattedDate, description, days)
+            val imageUrl = holidayJsonObject.optString("image", null)
+            val holiday = Holiday(name, formattedDate, description, days, imageUrl)
             holidayList.add(holiday)
         }
         return holidayList

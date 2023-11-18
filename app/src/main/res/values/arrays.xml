@@ -1,0 +1,13 @@
+<resources>
+    <string-array name="picture_display_options">
+        <item>Скрыть</item>
+        <item>Показывать отдельно</item>
+        <item>Показывать фоном</item>
+    </string-array>
+
+    <string-array name="picture_display_values">
+        <item>hide</item>
+        <item>show</item>
+        <item>back</item>
+    </string-array>
+</resources>
